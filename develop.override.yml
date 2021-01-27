@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  account-service:
+    build: ../account-service
+    volumes:
+      - ../account-service/:/home/node/app/
+    command: npm run debug
+    ports:
+      - "9229:9229"
+
+  api-service:
+    build: ../api-service
+    volumes:
+      - ../api-service/:/home/node/app/
+    command: npm run debug
+    ports:
+      - "9230:9229"
+
+  cloud-service:
+    build: ../cloud-service
+    volumes:
+      - ../cloud-service/:/home/node/app/
+    command: npm run debug
+    ports:
+      - "9231:9229"
+
+  cloud-provider-kubernetes:
+    build: ../cloud-provider-kubernetes
+    volumes:
+      - ../cloud-provider-kubernetes/:/home/node/app/
+    command: npm run debug
+    ports:
+      - "9232:9229"

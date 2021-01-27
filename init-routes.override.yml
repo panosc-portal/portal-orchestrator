@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  init-kong-routes:
+    image: alpine/httpie
+    entrypoint: /bin/sh
+    command: /tmp/routes.sh
+    depends_on:
+      - kong
+    volumes:
+      - ./routes.sh:/tmp/routes.sh

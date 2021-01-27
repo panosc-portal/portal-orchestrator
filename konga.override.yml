@@ -1,0 +1,21 @@
+version: "3"
+services:
+  konga-prepare:
+    image: pantsel/konga:next
+    command: "-c prepare -a postgres -u postgresql://kong:kong@kong-db:5432/konga_database"
+    restart: on-failure
+    depends_on:
+      - kong-db
+
+  konga:
+    image: pantsel/konga:next
+    restart: always
+    environment:
+      - DB_ADAPTER=postgres
+      - DB_HOST=kong-db
+      - DB_USER=kong
+      - DB_PASSWORD=kong
+    depends_on:
+      - kong-db
+    ports:
+      - "1337:1337"

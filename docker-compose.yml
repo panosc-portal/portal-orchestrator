@@ -1,0 +1,78 @@
+version: "3"
+
+volumes:
+        kong_data: {}
+
+services:
+
+############
+#   Kong   #
+############
+        kong-migrations:
+                image: kong:latest
+                command: kong migrations bootstrap
+                depends_on:
+                        - kong-db
+                restart: on-failure
+                env_file: .env
+
+
+        kong:
+                image: kong:latest
+                ports:
+                        - "8000:8000"
+                        - "8001:8001"
+                depends_on:
+                        - kong-db
+                restart: on-failure
+                env_file: .env
+
+
+        kong-db:
+                image: postgres:9.6
+                volumes:
+                        - kong_data:/var/lib/postgresql/data
+                env_file: .env
+
+################
+#   Services   #
+################
+
+        account-service:
+                image: panosc/account-service:latest
+                environment:
+                        - PORT=4011
+                ports:
+                        - "4011:4011"
+                env_file: .env
+                restart: on-failure
+
+
+        api-service:
+                image: panosc/api-service:latest
+                environment:
+                        - PORT=4020
+                ports:
+                        - "4020:4020"
+                env_file: .env
+                restart: on-failure
+
+
+        cloud-service:
+                image: panosc/cloud-service:latest
+                environment:
+                        - PORT=4010
+                ports:
+                        - "4010:4010"
+                env_file: .env
+                restart: on-failure
+
+
+        cloud-provider-kubernetes:
+                image: panosc/cloud-provider-kubernetes:latest
+                environment:
+                        - PORT=4000
+                ports:
+                        - "4000:4000"
+                env_file: .env
+                restart: on-failure

@@ -1,0 +1,29 @@
+version: "3"
+
+volumes:
+  services-db: {}
+
+services:
+  services-db:
+    image: postgres:9.6
+    env_file: .env
+    volumes:
+      - services-db:/var/lib/postgresql/data
+      - ./pg-init-scripts:/docker-entrypoint-initdb.d
+    ports:
+            - "5432:5432"
+  
+  account-service:
+    depends_on:
+      - services-db
+    command: sh -c "sleep 10 && npm run debug"
+  
+  cloud-service:
+    depends_on:
+      - services-db
+    command: sh -c "sleep 10 && npm run debug"
+  
+  cloud-provider-kubernetes:
+    depends_on:
+      - services-db
+    command: sh -c "sleep 10 && npm run debug"
