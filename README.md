@@ -77,7 +77,10 @@ http POST localhost:8001/plugins/ name=request-transformer config.add.headers=Ga
 Each microservice is exposed via the Kong API gateway at `http://localhost:8000/<service>/`.
 For example, to access api-service you can use `http://localhost:8000/api-service/api/v1/`.
 
-It is also available directly. To see on which port each service is available, please use `docker-compose -f docker-compose.yml -f konga.override.yml ps`.
+It is also available directly. To see on which port each service is available, please use: 
+```
+docker-compose -f docker-compose.yml -f konga.override.yml ps
+```
 For example, to access api-service you can use `http://localhost:4011/api/v1/`.
 
 ### How to stop the server
@@ -88,7 +91,7 @@ The `docker-compose down` command is also useful to clean most objects (containe
 ## Steps to launch a development environment
 
 ### Prerequisites
-each microservice code is cloned in a directory. It must keep the repo name and be located one directory level above the docker compose files.
+Each microservice code is cloned in a directory. It must keep the repo name and be located one directory level above the docker compose files.
 ```bash
 git clone https://github.com/panosc-portal/api-service
 git clone https://github.com/panosc-portal/account-service
@@ -98,14 +101,30 @@ git clone https://github.com/panosc-portal/cloud-provider-kubernetes
 Run `npm install` and `npm run build` for each microservice.
 
 ### Launch command
-Launch process and configuration is the same except that you add another docker-compose file :
-`docker-compose -f docker-compose.yml -f develop.override.yml -f konga.override.yml up`
+Launch process and configuration is the same except that you add another docker-compose file:
+
+```
+docker-compose -f docker-compose.yml -f develop.override.yml -f konga.override.yml up
+```
 > WARNING : sometime the command hang during the `npm install` part of an image creation. If this is the case, relaunch the command and it should be fine.
 
 ### Development and debugging
-For each microservice an additional port (starting at 9229) is exposed for the Javascript debugger. Use same command as before (with `-f develop.override.yml`) to show them.
+For each microservice an additional port (starting at 9229) is exposed for the Javascript debugger. Type
+```
+docker-compose -f docker-compose.yml -f konga.override.yml-f develop.override.yml ps
+```
+to see the exposed ports of the different services.
 
-Example VS Code launch config to connect to the debugger:
+By default the `develop.override.yml` file specifies the following debug ports:
+
+| service| debug port |
+|--------|------------|
+| account-service | 9229 |
+| api-service | 9230 |
+| cloud-service | 9231 |
+| cloud-provider-kubernetes | 9232 |
+
+Example VS Code launch config to connect to the debugger (you may need tp change the `localRoot` accordingly depending on where you launch the debugging task):
 ```json
 {
     "address": "localhost",
