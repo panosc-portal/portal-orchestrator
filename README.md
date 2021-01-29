@@ -142,3 +142,26 @@ Example VS Code launch config to connect to the debugger (you may need tp change
 
 ### Live reload
 In debug mode, the local source code is mounted as a volume on `/home/node/app/` for each container. JS files are watched for modifications (TypeScript files are not watched yet). If you make local modifications and run `npm run build`, the microservice will be reloaded.
+
+### Running and developing a microservice locally (without docker)
+In certain cases when developing a microservice it is useful to run it locally rather than in a container. This is true especially for Java microservices (for which live reload is not available) or for Node.js microservices where `node_modules` contains symbolic links which are not propagated into the container.
+
+Running the portal as shown above (with or without `develop.override.yml`) you need to then run a small *service registrar* application. The registrar will listen for different microservices running locally and automatically insert them into the Kong API gateway. All API requests for that microservice will the be redirected to your locally running one.
+
+To run the *service registrar* type the following command:
+```
+./run-dev-registrar.sh
+```
+This starts up the registrar application and listens to specific ports for active local microservices. 
+
+The following table shows the ports on which the local microservices should run (this can be modified by editing `dev-registrar/services-info.json`):
+
+|service| local port|
+|-------|-----------|
+| account-service | 5011 |
+| api-service | 5020 |
+| cloud-service | 5010 |
+| cloud-provider-kubernetes | 5000 |
+
+Running a microservice locally means that you can develop and debug directly using an IDE rather than using the remote debugging outlined above. You will also obviously need to provide a `.env` file specific to the local microservice (you can extract the relevant section from the `template.env` provided here).
+

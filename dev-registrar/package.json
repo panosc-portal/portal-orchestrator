@@ -1,0 +1,10 @@
+{
+  "name": "dev-registrar",
+  "description": "basic kong registrar for local dev services",
+  "version": "0.0.1",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "portastic": "^1.0.1",
+    "winston": "^3.3.3"
+  }
+}
