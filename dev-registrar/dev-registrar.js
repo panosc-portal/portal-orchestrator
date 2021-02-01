@@ -47,7 +47,7 @@ monitor.on('close', port => onServiceStarted(port));
 // Called when a service starts
 const onServiceStarted = function (port) {
   const service = portsToServices[port];
-  console.log(`${service} running locally`);
+  logger.info(`\u001b[32;1m${service} running locally\u001b[0m`);
 
   const localServiceAddress = `${HOST_FROM_DOCKER}:${port}`;
 
@@ -59,7 +59,7 @@ const onServiceStarted = function (port) {
 
       // Add target if it doesn't already exist
       if (!devTargetExists) {
-        console.log(`adding ${service} dev target to kong and deactivating the others`);
+        logger.info(`adding ${service} dev target to kong and deactivating the others`);
         httpClient.post(`${service}/targets`, {target: localServiceAddress})
           .then(() => {
             // Mark all other targets as unhealthy
@@ -74,7 +74,7 @@ const onServiceStarted = function (port) {
 // Called when a service stops
 const onServiceStopped = function (port) {
   const service = portsToServices[port];
-  logger.info(`${service} not running locally`);
+  logger.info(`\u001b[33;1m${service} not running locally\u001b[0m`);
 
   const localServiceAddress = `${HOST_FROM_DOCKER}:${port}`;
 
@@ -84,7 +84,7 @@ const onServiceStopped = function (port) {
       const devTargetExists = targets.find(target => target.target === localServiceAddress);
 
       if (devTargetExists) {
-        console.log(`removing ${service} dev target from kong and reactivating the others`);
+        logger.info(`removing ${service} dev target from kong and reactivating the others`);
         httpClient.delete(`${service}/targets/${localServiceAddress}`)
           .then(() => {
             const remainingTargets = targets.filter(target => target.target !== localServiceAddress)

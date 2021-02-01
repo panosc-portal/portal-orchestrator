@@ -1,6 +1,8 @@
 [
   {"service": "account-service", "port": 5011},
   {"service": "api-service", "port": 5020},
+  {"service": "desktop-service", "port": 5021},
+  {"service": "desktop-service-ws", "port": 5022},
   {"service": "cloud-service", "port": 5010},
   {"service": "cloud-provider-kubernetes", "port": 5000}
 ]
