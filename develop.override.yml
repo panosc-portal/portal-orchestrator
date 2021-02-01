@@ -17,6 +17,14 @@ services:
     ports:
       - "9230:9229"
 
+  desktop-service:
+    build: ../desktop-service
+    volumes:
+      - ../desktop-service/:/usr/src/app
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9233 -jar application/target/desktop-service.jar server configuration.yml
+    ports:
+      - "9233:9233"
+
   cloud-service:
     build: ../cloud-service
     volumes:

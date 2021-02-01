@@ -13,6 +13,11 @@ services:
     ports:
             - "5432:5432"
   
+  desktop-service:
+    depends_on:
+      - services-db
+    command: sh -c "sleep 10 && java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9233 -jar application/target/desktop-service.jar server configuration.yml"
+  
   account-service:
     depends_on:
       - services-db

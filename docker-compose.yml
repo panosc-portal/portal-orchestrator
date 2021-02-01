@@ -58,6 +58,18 @@ services:
                 restart: on-failure
 
 
+        desktop-service:
+                image: panosc/desktop-service:latest
+                environment:
+                        - DESKTOP_SERVICE_SERVER_PORT=4021
+                        - DESKTOP_SERVICE_VDI_PORT=4022
+                ports:
+                        - "4021:4021"
+                        - "4022:4022"
+                env_file: .env
+                restart: on-failure
+
+
         cloud-service:
                 image: panosc/cloud-service:latest
                 environment:

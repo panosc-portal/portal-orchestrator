@@ -2,7 +2,7 @@ version: "3"
 services:
   konga-prepare:
     image: pantsel/konga:next
-    command: "-c prepare -a postgres -u postgresql://kong:kong@kong-db:5432/konga_database"
+    command: "-a postgres -u postgresql://kong:kong@kong-db:5432/konga_database"
     restart: on-failure
     depends_on:
       - kong-db
