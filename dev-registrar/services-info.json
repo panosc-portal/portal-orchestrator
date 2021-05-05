@@ -4,5 +4,6 @@
   {"service": "desktop-service", "port": 5021},
   {"service": "desktop-service-ws", "port": 5022},
   {"service": "cloud-service", "port": 5010},
-  {"service": "cloud-provider-kubernetes", "port": 5000}
+  {"service": "cloud-provider-kubernetes", "port": 5000},
+  {"service": "logging-service", "port": 5030}
 ]

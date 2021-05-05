@@ -32,3 +32,8 @@ services:
     depends_on:
       - services-db
     command: sh -c "sleep 10 && npm run debug"
+
+  logging-service:
+    depends_on:
+      - services-db
+    command: sh -c "sleep 10 && npm run debug"

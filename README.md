@@ -59,6 +59,7 @@ By default the following ports are open for the microservices:
 | api-service | 4020 |
 | cloud-service | 4010 |
 | cloud-provider-kubernetes | 4000 |
+| logging-service | 4030 |
 
 For example, to access api-service you can use `http://localhost:4011/api/v1/`.
 
@@ -77,6 +78,7 @@ git clone https://github.com/panosc-portal/desktop-service
 git clone https://github.com/panosc-portal/account-service
 git clone https://github.com/panosc-portal/cloud-service
 git clone https://github.com/panosc-portal/cloud-provider-kubernetes
+git clone https://github.com/panosc-portal/logging-service
 ```
 
 Depending on the microservice language (see below), run the following commands to build them:
@@ -92,6 +94,8 @@ The following table shows the language of each microservice:
 | cloud-service | Javascript |
 | cloud-provider-kubernetes | Javascript |
 | desktop-service | Java |
+| logging-service | Javascript |
+
 
 ### Launch command
 Launch process and configuration is the same except that you add another argument to `quickstart.sh`:
@@ -117,6 +121,7 @@ By default the `develop.override.yml` file specifies the following debug ports:
 | cloud-service | 9231 |
 | cloud-provider-kubernetes | 9232 |
 | desktop-service |9233 |
+| logging-service |9234 |
 
 The following is an example VS Code launch config to connect to a Javascript debugger (you may need to change the `localRoot` accordingly depending on where you launch the debugging task):
 ```json
@@ -159,6 +164,7 @@ The following table shows the ports on which the local microservices should run 
 | api-service | 5020 |
 | cloud-service | 5010 |
 | cloud-provider-kubernetes | 5000 |
+| logging-service | 5030 |
 
 Running a microservice locally means that you can develop and debug directly using an IDE rather than using the remote debugging outlined above. You will also obviously need to provide a `.env` file specific to the local microservice (you can extract the relevant section from the `template.env` provided here) or explicitly set the environment variables.
 

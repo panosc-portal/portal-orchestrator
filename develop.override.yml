@@ -40,3 +40,11 @@ services:
     command: npm run debug
     ports:
       - "9232:9229"
+
+  logging-service:
+    build: ../logging-service
+    volumes:
+      - ../logging-service/:/home/node/app/
+    command: npm run debug
+    ports:
+      - "9234:9229"

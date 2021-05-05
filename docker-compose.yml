@@ -88,3 +88,13 @@ services:
                         - "4000:4000"
                 env_file: .env
                 restart: on-failure
+
+        
+        logging-service:
+                image: panosc/logging-service:latest
+                environment:
+                        - PORT=4030
+                ports:
+                        - "4030:4030"
+                env_file: .env
+                restart: on-failure
