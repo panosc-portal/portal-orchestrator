@@ -91,7 +91,7 @@ services:
 
         
         logging-service:
-                image: panosc/logging-service:latest
+                image: panosc/logging-service:testing
                 environment:
                         - PORT=4030
                 ports:
